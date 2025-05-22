@@ -6,4 +6,4 @@ State in React is like a box that holds information about a part of the screen. 
 
 ## What is "lifting state up" and when should you use it?
 
-"Lifting state up" means moving state to a parent component so that two or more child components can share it. Sometimes, two components need to see or change the same data. Instead of each having their own copy, we put the state higher up and pass it down. This way, both components stay in sync. We use this when one component's changes need to affect another. It's like giving both kids the same toy from the parent, so they both see the same thing. This keeps things simple and organized.
+"Lifting state up" means moving state to a parent component so that two or more child components can share it. Sometimes, two components need to see or change the same data. Instead of each having their own copy, we put the state higher up and pass it down. This way, both components stay in sync. We use this when one component's changes need to affect another. It's like two people looking at the same whiteboard to write and read notes — they both see the same thing. This keeps things simple and connected.
