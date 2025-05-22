@@ -27,46 +27,36 @@ function Board({ xIsNext, squares, onPlay }) {
     onPlay(nextSquares, i);
   }
 
-  function isGameFinished(squares) {
-    for (let index = 0; index < squares.length; index++) {
-      if (squares[index] === null) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
     status = "Winner: " + winner;
+  } else if (isGameDraw(squares)) {
+    status = "Draw!";
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
-    if (isGameFinished(squares)) {
-      status = "Draw!";
-    }
   }
 
   const size = 3;
   const winnerSquares = winner ? getWinnerSquares(squares) : [];
   const rows = [];
   for (let row = 0; row < size; row++) {
-    const squaresRow = [];
+    const squaresRowGroup = [];
     for (let col = 0; col < size; col++) {
       const index = row * size + col;
-      const isWinnerSquare = winnerSquares.includes(index);
-      squaresRow.push(
+      squaresRowGroup.push(
         <Square
           key={index}
           value={squares[index]}
-          className={isWinnerSquare ? "square-winner" : ""}
+          className={winnerSquares.includes(index) ? "square-winner" : ""}
           onSquareClick={() => handleClick(index)}
         />
       );
     }
+
     rows.push(
       <div key={row} className="board-row">
-        {squaresRow}
+        {squaresRowGroup}
       </div>
     );
   }
@@ -169,6 +159,15 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function isGameDraw(squares) {
+  for (let index = 0; index < squares.length; index++) {
+    if (squares[index] === null) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function getWinnerSquares(squares) {
